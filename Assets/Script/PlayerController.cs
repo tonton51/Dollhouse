@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     //変数の宣言(角度の制限用)
     float minX = -90f, maxX = 90f;
     float originalY; // 元のY位置を保存する変数
+    public static bool goalflag=false;
+
  
     // Start is called before the first frame update
     void Start()
@@ -35,6 +37,16 @@ public class PlayerController : MonoBehaviour
         transform.localRotation = characterRot;
         UpdateCursorLock();
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        // ゴールに当たったら、goalflagをtrueにする
+        if (other.CompareTag("Goal"))
+        {
+            goalflag = true;
+        }
+    }
+    public static bool getGoalFlag() { return goalflag; } // goalflagを返す変数
  
     private void FixedUpdate()
     {
